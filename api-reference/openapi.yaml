@@ -1,0 +1,419 @@
+---
+openapi: 3.0.1
+info:
+  title: ""
+  description:
+    A sample API that uses a plant store as an example to demonstrate features
+    in the OpenAPI specification
+  license:
+    name: MIT
+  version: 1.0.0
+servers:
+  - url: https://staging.s88pay.net
+paths:
+  "/{merchant_code}/v2/dopayment":
+    get:
+      description: Operator make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/Key"
+        - $ref: "#/components/parameters/MerchantCode"
+      responses:
+        "302":
+          description: After the URL payment is created, then redirect to the URL.
+  "/api/v1/{merchant_code}/transactions/status":
+    post:
+      description: Check the status of a transaction for a specific merchant.
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: Key generated from parameters with API key and API secret encryption
+                  example: generated_from_parametes_encrypted
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the request was successful
+                    example: true
+                  data:
+                    type: array
+                    description: List of transaction details
+                    items:
+                      $ref: "#/components/schemas/Transaction"
+                  message:
+                    type: string
+                    description: Message indicating the status of the request
+                    example: Request transaction list successful
+  "/api/v1/payout/{merchant_code}":
+    post:
+      summary: Process payout
+      description: Process a payout for a specific merchant.
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Key"
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the request was successful
+                    example: true
+                  message:
+                    type: string
+                    description: Message indicating the status of the request
+                    example: request withdraw successful
+        "111":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the request was successful
+                    example: false
+                  message:
+                    type: string
+                    description: Message indicating the status of the request
+                    example: Invalid Transaction Code ( not unique )!, error code 111
+  "/api/v1/balance/{merchant_code}":
+    get:
+      description: Operator make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/Key"
+        - $ref: "#/components/parameters/MerchantCode"
+      responses:
+        "200":
+          description: After the URL payment is created, then redirect to the URL.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Balance"
+  "/api/{merchant_code}/v3/dopayment":
+    post:
+      description: make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Key"
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+
+  "/api/{merchant_code}/v3/krw-payment":
+    post:
+      description: make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Key"
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dopayment-KRW"
+  "/api/{merchant_code}/v3/submit-utr":
+    post:
+      description: make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Key"
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status of the transaction
+                    example: success
+                  message:
+                    type: string
+                    description: Message indication status of the transaction
+                    example: Success Submit Utr!
+  "/api/{merchant_code}/v3/submit-refno":
+    post:
+      description: make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Key"
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Key"
+  "/api/{merchant_code}/v3/krw-submit-information":
+    post:
+      description: make payment request to S88pay
+      parameters:
+        - $ref: "#/components/parameters/MerchantCode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Key"
+      responses:
+        "200":
+          description: Transaction status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Depositor-KRW"
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        transaction_no:
+          type: string
+          description: Transaction number
+          example: DP1678780607892
+        transaction_code:
+          type: string
+          description: Transaction code
+          example: TEST-DP-1678780607
+        amount:
+          type: string
+          description: Transaction amount
+          example: 500.00
+        transaction_fee:
+          type: string
+          description: Transaction fee
+          example: 15.00
+        transaction_ref:
+          type: string
+          description: Transaction reference
+          example: null
+        transaction_ref2:
+          type: string
+          description: Additional transaction reference
+          example: null
+        status:
+          type: string
+          description: Transaction status
+          example: pending
+        type:
+          type: string
+          description: Transaction type
+          example: deposit
+        note:
+          type: string
+          description: Additional notes for the transaction
+          example: null
+        method_name:
+          type: string
+          description: Transaction method name
+          example: UPI 3
+        currency_name:
+          type: string
+          description: Currency name
+          example: Indian Rupee
+        currency_code:
+          type: string
+          description: Currency code
+          example: INR
+        datetime:
+          type: string
+          format: date-time
+          description: Date and time of the transaction
+    Payout:
+      type: object
+      properties:
+        merchant_code:
+          type: string
+          description: Merchant code
+          example: MERCHANT123
+        transaction_code:
+          type: string
+          description: Transaction code
+          example: TRANSACTION123
+        transaction_timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the transaction
+          example: "2024-02-22T12:00:00Z"
+        payout_code:
+          type: string
+          description: Payout code
+          example: PAYOUT123
+        transaction_amount:
+          type: number
+          description: Transaction amount
+          example: 500.00
+        user_id:
+          type: string
+          description: User ID
+          example: USER123
+        currency_code:
+          type: string
+          description: Currency code
+          example: INR
+        bank_account_number:
+          type: string
+          description: Bank account number
+          example: 1234567890
+        ifsc_code:
+          type: string
+          description: IFSC code
+          example: ABCD0123456
+        bank_code:
+          type: string
+          description: Bank code
+          example: BANK123
+        bank_name:
+          type: string
+          description: Bank name
+          example: Bank of Example
+        account_name:
+          type: string
+          description: Account name
+          example: John Doe
+    Balance:
+      type: object
+      properties:
+        currency_name:
+          type: string
+          description: Currency name
+          example: India Rupee
+        currency_code:
+          type: string
+          description: Currency code
+          example: INR
+        balance:
+          type: string
+          description: Balance
+          example: 100000
+    Key:
+      type: object
+      properties:
+        key:
+          type: string
+          description: generated from [parameters](/api-reference/endpoint/dopayment#parameters) with api_key and api_secret encryption
+    Dopayment-KRW:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the transaction
+          example: success
+        step:
+          type: integer
+          description: Step
+          example: 1
+        message:
+          type: string
+          description: Message indicating the status of the transaction
+          example: Submit Transaction Success! Please submit Depositor Name, Bank Code and Account Number.
+        transaction_code:
+          type: string
+          description: Transaction code
+          example: TEST-DP-1697797081
+        amount:
+          type: string
+          description: Transaction amount
+          example: 10000.00
+        bank_lists:
+          type: array
+          description: Array List Banks
+    Depositor-KRW:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the transaction
+          example: success
+        step:
+          type: integer
+          description: Step
+          example: 1
+        message:
+          type: string
+          description: Message indicating the status of the transaction
+          example: Submit Depositor Information Success.
+        transaction_no:
+          type: string
+          description: Transaction no
+          example: DP1697797081482
+        transaction_code:
+          type: string
+          description: Transaction code
+          example: TEST-DP-1697797081
+        amount:
+          type: string
+          description: Transaction amount
+          example: 10000.00
+        bank_name:
+          type: string
+          description: Bank Name
+          example: Destination Bank Name
+        account_name:
+          type: string
+          description: Destination Bank Account Name,
+        account_number:
+          type: string
+          description: Destination Bank Account Number
+  parameters:
+    Key:
+      name: key
+      in: query
+      description: generated from *parameters* with [api_key and api_secret encryption](/api-reference/encrypt)
+      required: true
+      schema:
+        type: string
+    MerchantCode:
+      name: merchant_code
+      in: path
+      description: Merchant code
+      required: true
+      schema:
+        type: string

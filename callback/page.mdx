@@ -1,0 +1,34 @@
+---
+title: "Callback Page"
+---
+
+<Warning>
+  Callback success page and failed URL can be set on **Back Office** provided by
+  operator
+</Warning>
+
+It's possible to set up a successful callback page via Back Office. When the transaction gets a success status. the page will be redirected to the success URL page. When the translation gets failed status, the page will be redirected to the failed URL page.
+
+Sample callback success url format set on the Back Office like so:
+
+```bash
+https://www.example.com/success
+```
+
+if the transaction succeeds, will be redirected to: `https://www.example.com/success`.
+
+<CardGroup cols={3}>
+  <Card title="Callback Page (Operator)" icon="code" href="/callback/page">
+    Callback page used for forward transaction status
+  </Card>
+  <Card
+    title="Deposit Callback (Operator)"
+    icon="code"
+    href="/callback/deposit"
+  >
+    Callback for `deposit`
+  </Card>
+  <Card title="Payout Callback (Operator)" icon="code" href="/callback/payout">
+    Callback for `payout`
+  </Card>
+</CardGroup>

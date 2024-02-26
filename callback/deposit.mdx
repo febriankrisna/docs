@@ -1,0 +1,69 @@
+---
+title: "Deposit Callback (Operator)"
+---
+
+After the operator sends a payment request to [dopayment / deposit](/api-reference/endpoint/dopayment), the provider will process it. Once the provider receives the transaction status ( success or failure ), the provider will call this API to forward the transaction status.
+
+<RequestExample>
+
+```bash cURL
+  curl --request POST \
+    --url https://s88pay.net/api/v1/transaction/resend-callback/SKU20210909025705 \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "key": "<string>",
+        "transaction_code": "<string>",
+        "transaction_no": "<string>"
+      }'
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response after decrypting
+{
+  "transaction_code": "",
+  "transaction_status": "",
+  "transaction_amount": "",
+  "transaction_fee": "",
+  "currency_code": "",
+  "transaction_no": "",
+  "transaction_actual_amount": ""
+}
+```
+
+</ResponseExample>
+
+<Warning>
+  Provider will send the parameter in key format, then operator need to decrypt
+  it [using encrypt/decrypt function](/api-reference/encrypt).
+</Warning>
+
+For key, you need to decrypt with `api_key` and `api_secret`. Besides the key, we also send the transaction code in the `transaction_code` parameter and the transaction number in the `transaction_no` parameter, which is not encrypted.
+
+After decrypting the parameters, you will find that the parameters are:
+
+## Parameters
+
+<ResponseField name="transaction_code" type="string">
+  The transaction code that is sent by the operator on dopayment.
+</ResponseField>
+<ResponseField name="transaction_status" type="integer">
+  The status of the [deposit transaction ](/api-reference/status/deposit)
+</ResponseField>
+<ResponseField name="transaction_amount" type="double">
+  The amount of the transaction
+</ResponseField>
+<ResponseField name="transaction_fee" type="double">
+  The amount of fee transaction
+</ResponseField>
+<ResponseField name="currency_code" type="string">
+  Please refer to [currency list](/resources/currency)
+</ResponseField>
+<ResponseField name="transaction_no" type="string">
+  The transaction code on the provider's database
+</ResponseField>
+<ResponseField name="transaction_actual_amount" type="double">
+  The actual amount paid by the member.
+</ResponseField>

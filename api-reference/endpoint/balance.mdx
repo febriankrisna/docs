@@ -1,0 +1,15 @@
+---
+title: "Get Balance"
+openapi: "GET /api/v1/balance/{merchant_code}"
+---
+
+<Warning>
+  Combine all parameters into one string, separated by `&` character and then
+  encrypt using [encrypt_decrypt algorithms](/api-reference/encrypt).
+</Warning>
+
+## Parameters
+
+<ResponseField name="merchant_api_key" type="string" required>
+  Provide by Provider
+</ResponseField>

@@ -1,30 +1,26 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "S88PAY Payment",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/light.png",
+    "light": "/logo/dark.png"
   },
-  "favicon": "/favicon.svg",
+  "modeToggle": {
+    "default": "light"
+  },
+  "favicon": "/favicon.jpeg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
+    "primary": "#ECB93F",
+    "light": "#ECB93F",
+    "dark": "#ECB93F",
+    "anchors": "#ECB93F"
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:marketing@s88pay.net"
     }
   ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
   "tabs": [
     {
       "name": "API Reference",
@@ -35,57 +31,73 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "introduction"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "API Reference",
+      "icon": "code",
+      "url": "api-reference"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
+      "pages": ["introduction", "term", "workflow", "prerequirement"]
+    },
+    {
+      "group": "Callback",
+      "pages": ["callback/page", "callback/deposit", "callback/payout"]
+    },
+    {
+      "group": "Resources",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "resources/currency",
+        "resources/bank/bdt",
+        "resources/bank/brl",
+        "resources/bank/cny",
+        "resources/bank/idr",
+        "resources/bank/jpy",
+        "resources/bank/krw",
+        "resources/bank/myr",
+        "resources/bank/php",
+        "resources/bank/thb",
+        "resources/bank/vnd"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "API Reference",
+      "pages": ["api-reference/introduction", "api-reference/encrypt"]
+    },
+    {
+      "group": "API Function",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api-reference/endpoint/dopayment",
+        "api-reference/endpoint/transactions",
+        "api-reference/endpoint/payout",
+        "api-reference/endpoint/balance"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Payment Request (for INR, BDT, VND, JPY, KRW, BRL merchant only)",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/v3/flowchart",
+        "api-reference/v3/endpoint/dopayment",
+        "api-reference/v3/endpoint/krw-payment",
+        "api-reference/v3/endpoint/utr",
+        "api-reference/v3/endpoint/ref",
+        "api-reference/v3/endpoint/depositor"
       ]
     },
     {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
+      "group": "Status List",
+      "pages": ["api-reference/status/deposit", "api-reference/status/payout"]
+    },
+    {
+      "group": "Error Lists",
+      "pages": ["api-reference/errors/dopayment", "api-reference/errors/payout"]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "telegram": "https://t.me/seapaysales"
   }
 }

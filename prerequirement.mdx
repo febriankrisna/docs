@@ -1,0 +1,36 @@
+---
+title: "Pre Requiremnt"
+description: "Before using S88pay Payment Gateway"
+---
+
+### Pre Requirement Provide by Provider
+
+- Server info & API URL
+- Credential API : `api_key`, `secret_key`, `merchant_code`
+- Credential BO : username, password
+
+### Pre-Requirement Provide by Operator
+
+- [API Callback URL](/callback/page) (mandatory). Used to forward transaction status
+- Callback `success url page` (optional).
+- Callback `failed url page` (optional)
+
+### Security
+
+- Token and transaction key (Need to create token and key for each transaction). More about generate token [encrypt / decript function](/api-reference/encrypt)
+- IP White list for Back Office login
+
+<CardGroup cols={2}>
+  <Card title="Pre-Requirement" icon="gears" href="prerequirement">
+    Starting Requirements
+  </Card>
+  <Card title="Term & Definition" icon="files" href="term">
+    Make clear the terms used and defined in the documentation
+  </Card>
+  <Card title="Workflow" icon="webhook" href="workflow">
+    Flow Description
+  </Card>
+  <Card title="API Function" icon="code" href="api-reference">
+    Fundamental concepts of S88PAY Payment API.
+  </Card>
+</CardGroup>
